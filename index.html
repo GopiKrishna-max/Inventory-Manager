@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-left"><strong>Inventory Management</strong></div>
     <div class="nav-links">
@@ -19,23 +17,18 @@
     </div>
   </nav>
 
-  <!-- Header -->
   <header>
     <h1>Inventory Manager</h1>
     <button id="clearAll" title="Remove all saved data">Clear All</button>
   </header>
 
-  <!-- Tabs -->
   <div class="tabs" role="tablist">
     <button class="tab active" data-target="current-section">Current Inventory</button>
     <button class="tab" data-target="incoming-section">Incoming Purchase</button>
     <button class="tab" data-target="outgoing-section">Outgoing Orders</button>
   </div>
 
-  <!-- Main Sections -->
   <main class="inventory-section">
-
-    <!-- ===== HOME ===== -->
     <section id="home-section" class="section active">
       <h2>Welcome to the Inventory Management System</h2>
       <p>This system helps small shop owners easily track inventory, incoming purchases, and outgoing orders.</p>
@@ -47,7 +40,6 @@
       </ul>
     </section>
 
-    <!-- ===== MORE INFO ===== -->
     <section id="info-section" class="section">
       <h2>More Information</h2>
       <p>This Inventory Management System is built using:</p>
@@ -59,7 +51,6 @@
       <p>It’s a simple yet powerful example of a client-side single-page application (SPA).</p>
     </section>
 
-    <!-- ===== LOGIN ===== -->
     <section id="login-section" class="section">
       <h2>Login</h2>
       <div class="form-container">
@@ -73,7 +64,6 @@
       <p id="loginMessage"></p>
     </section>
 
-    <!-- ===== REGISTER ===== -->
     <section id="register-section" class="section">
       <h2>Register</h2>
       <div class="form-container">
@@ -88,23 +78,19 @@
       <p id="registerMessage"></p>
     </section>
 
-    <!-- ===== CURRENT INVENTORY ===== -->
     <section id="current-section" class="section">
       <h2>Current Inventory</h2>
       <button id="clearInventory" class="danger-btn">Clear Inventory</button>
-
       <div class="form-container">
         <input type="text" id="curName" placeholder="Product Name" />
         <input type="text" id="curBrand" placeholder="Product Brand" />
         <input type="number" id="curQty" placeholder="Quantity" />
         <input type="number" id="curPrice" placeholder="Product Price (₹)" />
       </div>
-
       <div class="buttons">
         <button id="curAddBtn" class="success-btn">Add</button>
         <button id="curResetBtn" class="reset-btn">Reset</button>
       </div>
-
       <table id="currentTable">
         <thead>
           <tr><th>#</th><th>Name</th><th>Brand</th><th>Quantity</th><th>Price (₹)</th><th>Actions</th></tr>
@@ -113,22 +99,18 @@
       </table>
     </section>
 
-    <!-- ===== INCOMING PURCHASE ===== -->
     <section id="incoming-section" class="section">
       <h2>Incoming Purchase</h2>
-
       <div class="form-container">
         <input type="text" id="incName" placeholder="Product Name" />
         <input type="text" id="incBrand" placeholder="Product Brand" />
         <input type="number" id="incQty" placeholder="Quantity" />
         <input type="number" id="incPrice" placeholder="Product Price (₹)" />
       </div>
-
       <div class="buttons">
         <button id="incAddBtn" class="success-btn">Add to Incoming</button>
         <button id="incResetBtn" class="reset-btn">Reset</button>
       </div>
-
       <table id="incomingTable">
         <thead>
           <tr><th>#</th><th>Name</th><th>Brand</th><th>Quantity</th><th>Price (₹)</th><th>Actions</th></tr>
@@ -137,22 +119,18 @@
       </table>
     </section>
 
-    <!-- ===== OUTGOING ORDERS ===== -->
     <section id="outgoing-section" class="section">
       <h2>Outgoing Orders</h2>
-
       <div class="form-container">
         <input type="text" id="outName" placeholder="Product Name" />
         <input type="text" id="outBrand" placeholder="Product Brand" />
         <input type="number" id="outQty" placeholder="Quantity" />
         <input type="number" id="outPrice" placeholder="Product Price (₹)" />
       </div>
-
       <div class="buttons">
         <button id="outAddBtn" class="success-btn">Add to Outgoing</button>
         <button id="outResetBtn" class="reset-btn">Reset</button>
       </div>
-
       <table id="outgoingTable">
         <thead>
           <tr><th>#</th><th>Name</th><th>Brand</th><th>Quantity</th><th>Price (₹)</th><th>Actions</th></tr>
@@ -160,7 +138,6 @@
         <tbody></tbody>
       </table>
     </section>
-
   </main>
 
   <script src="script.js"></script>
