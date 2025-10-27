@@ -1,18 +1,18 @@
-// Three separate lists, each persisted separately
+
 let current = JSON.parse(localStorage.getItem("inv_current")) || [];
 let incoming = JSON.parse(localStorage.getItem("inv_incoming")) || [];
 let outgoing = JSON.parse(localStorage.getItem("inv_outgoing")) || [];
 
-// DOM refs
+
 const tabs = document.querySelectorAll(".tab");
 const sections = document.querySelectorAll(".section");
 
-// Tables
+
 const curTableBody = document.querySelector("#currentTable tbody");
 const incTableBody = document.querySelector("#incomingTable tbody");
 const outTableBody = document.querySelector("#outgoingTable tbody");
 
-// Buttons/inputs - Current
+
 const curName = document.getElementById("curName");
 const curBrand = document.getElementById("curBrand");
 const curQty = document.getElementById("curQty");
@@ -21,7 +21,7 @@ const curAddBtn = document.getElementById("curAddBtn");
 const curResetBtn = document.getElementById("curResetBtn");
 const clearInventoryBtn = document.getElementById("clearInventory");
 
-// Incoming
+
 const incName = document.getElementById("incName");
 const incBrand = document.getElementById("incBrand");
 const incQty = document.getElementById("incQty");
@@ -29,7 +29,7 @@ const incPrice = document.getElementById("incPrice");
 const incAddBtn = document.getElementById("incAddBtn");
 const incResetBtn = document.getElementById("incResetBtn");
 
-// Outgoing
+
 const outName = document.getElementById("outName");
 const outBrand = document.getElementById("outBrand");
 const outQty = document.getElementById("outQty");
@@ -37,7 +37,7 @@ const outPrice = document.getElementById("outPrice");
 const outAddBtn = document.getElementById("outAddBtn");
 const outResetBtn = document.getElementById("outResetBtn");
 
-// Clear all data
+
 document.getElementById("clearAll").addEventListener("click", () => {
   if (!confirm("Clear ALL saved data (all lists)?")) return;
   localStorage.removeItem("inv_current");
@@ -47,7 +47,6 @@ document.getElementById("clearAll").addEventListener("click", () => {
   renderAll();
 });
 
-// Tab switching
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
     tabs.forEach(t => t.classList.remove("active"));
@@ -60,7 +59,7 @@ tabs.forEach(tab => {
   });
 });
 
-// Render functions
+
 function saveAll() {
   localStorage.setItem("inv_current", JSON.stringify(current));
   localStorage.setItem("inv_incoming", JSON.stringify(incoming));
@@ -134,7 +133,7 @@ function renderAll() {
   saveAll();
 }
 
-// CRUD & moves - Current
+
 curAddBtn.addEventListener("click", () => {
   const name = curName.value.trim(), brand = curBrand.value.trim();
   const quantity = Number(curQty.value), price = Number(curPrice.value);
@@ -148,21 +147,21 @@ function clearCurrentForm(){ curName.value=""; curBrand.value=""; curQty.value="
 window.editCurrent = function(i){
   const it = current[i];
   curName.value = it.name; curBrand.value = it.brand; curQty.value = it.quantity; curPrice.value = it.price;
-  // replace the item on Add click by updating index
+  
   curAddBtn.onclick = function update(){ 
     const name = curName.value.trim(), brand = curBrand.value.trim(), quantity = Number(curQty.value), price = Number(curPrice.value);
     if(!name||!brand||!quantity||!price){ alert("Fill all fields"); return; }
-    current[i] = {name,brand,quantity,price}; curAddBtn.onclick = null; // restore default
-    curAddBtn.addEventListener("click", () => {}); // noop to ensure subsequent add works (we rebind below)
-    clearCurrentForm(); renderAll(); // re-render
-    // re-bind default add handler
+    current[i] = {name,brand,quantity,price}; curAddBtn.onclick = null;
+    curAddBtn.addEventListener("click", () => {});
+    clearCurrentForm(); renderAll(); 
+    
     curAddBtn.onclick = null;
-    curAddBtn.addEventListener("click", ()=>{ // rebind original simple add
+    curAddBtn.addEventListener("click", ()=>{ 
       const n = curName.value.trim(), b = curBrand.value.trim(), q = Number(curQty.value), p = Number(curPrice.value);
       if (!n||!b||!q||!p){ alert("Fill all fields"); return; }
       current.push({name:n,brand:b,quantity:q,price:p}); clearCurrentForm(); renderAll();
     }, { once: true } );
-    // simpler: reload page to reset handlers - but we already updated lists
+    
   };
 }
 window.deleteCurrent = function(i){
@@ -175,7 +174,7 @@ window.moveToOutgoing = function(i){
   renderAll();
 }
 
-// Incoming actions
+
 incAddBtn.addEventListener("click", () => {
   const name = incName.value.trim(), brand = incBrand.value.trim();
   const quantity = Number(incQty.value), price = Number(incPrice.value);
@@ -200,7 +199,7 @@ window.deleteIncoming = function(i){
 }
 window.receiveIncoming = function(i){
   const item = incoming.splice(i,1)[0];
-  // merge with existing current if same name+brand: sum quantities
+ 
   const idx = current.findIndex(it => it.name===item.name && it.brand===item.brand);
   if(idx>=0){
     current[idx].quantity = Number(current[idx].quantity) + Number(item.quantity);
@@ -208,7 +207,7 @@ window.receiveIncoming = function(i){
   renderAll();
 }
 
-// Outgoing actions
+
 outAddBtn.addEventListener("click", () => {
   const name = outName.value.trim(), brand = outBrand.value.trim();
   const quantity = Number(outQty.value), price = Number(outPrice.value);
@@ -232,21 +231,21 @@ window.deleteOutgoing = function(i){
   outgoing.splice(i,1); renderAll();
 }
 window.dispatchOutgoing = function(i){
-  // remove outgoing item after dispatch (could also copy to current if desired)
+  
   if(!confirm("Dispatch this outgoing order? This will remove it from outgoing.")) return;
   outgoing.splice(i,1); renderAll();
 }
 
-// initial render
+
 renderAll();
 
 
 
-// ====== NAVBAR PAGE SWITCHING ======
+
 const navLinks = document.querySelectorAll(".nav-links a");
 const allSections = document.querySelectorAll(".section");
 
-// When navbar link is clicked — show its section, hide others
+
 navLinks.forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -257,12 +256,12 @@ navLinks.forEach(link => {
       else sec.classList.remove("active");
     });
 
-    // deactivate tabs if Home/Info/Login/Register selected
+  
     tabs.forEach(t => t.classList.remove("active"));
   });
 });
 
-// ====== SIMPLE LOGIN & REGISTER LOGIC ======
+
 document.getElementById("loginBtn").addEventListener("click", () => {
   const user = document.getElementById("loginUser").value.trim();
   const pass = document.getElementById("loginPass").value.trim();
